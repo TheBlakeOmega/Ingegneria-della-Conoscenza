@@ -64,18 +64,18 @@ def mfcc(song, index):
 
 
 def get_song_feature(song):
-    features = numpy.ndarray(27)
+    features = numpy.ndarray(28)
     print("Computing song's features.. please wait...")
-    # features[0] = tempo(song)
-    features[0] = beat(song)
-    features[1] = chroma_stft(song)
-    features[2] = rmse(song)
-    features[3] = spectral_centroid(song)
-    features[4] = spectral_bandwidth(song)
-    features[5] = spectral_rolloff(song)
-    features[6] = zero_crossing_rate(song)
+    features[0] = tempo(song)
+    features[1] = beat(song)
+    features[2] = chroma_stft(song)
+    features[3] = rmse(song)
+    features[4] = spectral_centroid(song)
+    features[5] = spectral_bandwidth(song)
+    features[6] = spectral_rolloff(song)
+    features[7] = zero_crossing_rate(song)
     data = librosa.feature.mfcc(song[0], song[1])
-    i = 7
+    i = 8
     for value in data:
         features[i] = numpy.mean(value)
         i = i + 1
