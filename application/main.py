@@ -1,6 +1,6 @@
-import songFeature
-import classifiers
-import dataFunctions
+from application import songFeature
+from application import classifiers
+from application import dataFunctions
 import numpy as np
 import matplotlib.pyplot as plt
 

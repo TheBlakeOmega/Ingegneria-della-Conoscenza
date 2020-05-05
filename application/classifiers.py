@@ -6,7 +6,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import precision_score
 from sklearn.metrics import f1_score, confusion_matrix
 from sklearn.metrics import recall_score
-from sklearn.model_selection import StratifiedKFold
 
 def knnClassifier(X_train, Y_train):
     print("Building KNN Classifier:")
