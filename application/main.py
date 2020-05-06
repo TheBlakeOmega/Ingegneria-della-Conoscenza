@@ -11,25 +11,25 @@ X_train, X_test, Y_train, Y_test = dataFunctions.getData("C:/Users/wiare/Desktop
 classifier = classifiers.knnClassifier(X_train, Y_train)
 prediction = classifier.predict(X_test)
 print(classifier)
-classifiers.validation(Y_test, prediction)
+dataFunctions.validation(Y_test, prediction)
 
 # naive bayes
 classifier1 = classifiers.bayesianClassifier(X_train, Y_train)
 prediction = classifier1.predict(X_test)
 print(classifier1)
-classifiers.validation(Y_test, prediction)
+dataFunctions.validation(Y_test, prediction)
 
 # extra tree classifier
 classifier2 = classifiers.extraTreesClassifier(X_train, Y_train)
 prediction = classifier2.predict(X_test)
 print(classifier2)
-classifiers.validation(Y_test, prediction)
+dataFunctions.validation(Y_test, prediction)
 
 # random forest classifier
 classifier3 = classifiers.randomForestClassifier(X_train, Y_train)
 prediction = classifier3.predict(X_test)
 print(classifier3)
-classifiers.validation(Y_test, prediction)
+dataFunctions.validation(Y_test, prediction)
 importances = classifier3.feature_importances_ # importanza delle singole feature
 std = np.std([tree.feature_importances_ for tree in classifier3.estimators_], axis=0)
 indices = np.argsort(importances)[::-1]
