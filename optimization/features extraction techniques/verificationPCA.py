@@ -92,7 +92,7 @@ plt.ylim(0.0, 29.0)
 namePlot = "Number of components with max accuracy for every experiment.png"
 plt.savefig(namePlot, bbox_inches='tight')
 
-'''
+
 # use of whiten
 experiment = []
 accuracies_T = []
@@ -244,5 +244,3 @@ green_patch = matplotlib.patches.Patch(color='green', label='ARPACK')
 yellow_patch = matplotlib.patches.Patch(color='yellow', label='RANDOMIZED')
 plt.legend(handles=[blue_patch, red_patch, green_patch, yellow_patch], bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.0)
 plt.savefig("PCA's accuracies with different values of svd_solver", bbox_inches='tight')
-
-'''
