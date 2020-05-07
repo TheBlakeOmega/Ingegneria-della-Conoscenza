@@ -8,6 +8,7 @@ from sklearn.decomposition import FastICA
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import KFold
 
+
 matplotlib.use('Agg')
 data = pd.read_csv("C:/Users/wiare/Desktop/musicfeatures/data.csv")
 datas = data.drop('filename', 1)
