@@ -4,12 +4,17 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
 from sklearn.model_selection import validation_curve
 from sklearn.model_selection import GridSearchCV
-
+import dataFunctions
+from sklearn.metrics import plot_confusion_matrix
+from sklearn.metrics import precision_score
 
 data = pd.read_csv("D:/Users/Marco/Desktop/DataSet/musicfeatures/data.csv")
 datas = data.drop('filename', 1)
 X = np.array(datas.drop('label', 1))
 y = np.array(data['label'])
+X_train, X_test, Y_train, Y_test = dataFunctions.getData("D:/Users/Marco/Desktop/DataSet/musicfeatures/data.csv")
+
+print(list(set(y)))
 '''
 #best n_estimator for rfc
 param_range = np.arange(1,220,dtype=int)
@@ -230,21 +235,25 @@ plt.legend(loc="best")
 plt.show()
 '''
 
-'''
+
 #1*3*3*2*2*4 combination
 param_grid = {
     'bootstrap': [True],
     'max_depth': [8, 15, 25],
-    'max_features': [1, 20,28],
-    'min_samples_leaf': [1,2],
-    'min_samples_split': [2,4],
-    'n_estimators': [100,150, 200, 250]
+    'max_features': [1, 20, 28],
+    'min_samples_leaf': [1, 2],
+    'min_samples_split': [2, 4],
+    'n_estimators': [100, 150, 200, 250]
 }
 model = RandomForestClassifier()
 gridSearch = GridSearchCV(estimator=model, param_grid=param_grid, cv=3, n_jobs=4, verbose=2)
 
 gridSearch.fit(X, y)
 print(gridSearch.best_params_)
+
+print ("Miglior punteggio:", gridSearch.best_score_)
+print ("Migliori parametri:", gridSearch.best_params_)
+
 '''
 
 #1*3*3*2*2*4 combination
@@ -260,4 +269,8 @@ model = ExtraTreesClassifier()
 gridSearch = GridSearchCV(estimator=model, param_grid=param_grid, cv=3, n_jobs=4, verbose=2)
 
 gridSearch.fit(X, y)
-print(gridSearch.best_params_)
+
+
+print ("Miglior punteggio:", gridSearch.best_score_)
+print ("Migliori parametri:", gridSearch.best_params_)
+'''
