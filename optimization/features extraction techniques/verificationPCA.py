@@ -2,15 +2,16 @@ import matplotlib
 from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
+from sklearn import preprocessing
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.decomposition import PCA
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import KFold
 
 matplotlib.use('Agg')
 data = pd.read_csv("C:/Users/wiare/Desktop/musicfeatures/data.csv")
 datas = data.drop('filename', 1)
-X = np.array(datas.drop('label', 1))
+X = preprocessing.scale(np.array(datas.drop('label', 1)))
 Y = np.array(data['label'])
 
 
@@ -26,14 +27,15 @@ for j in range(0, 20):
     # Classification without PCA
     print("     Classification without PCA")
     KAccuracies = []
-    for k in range(0, 5):
-        X_copy = X.copy()
-        Y_copy = Y.copy()
+    X_copy = X.copy()
+    Y_copy = Y.copy()
+    kf = KFold(n_splits=5, shuffle=True)
+    for train_index, test_index in kf.split(X_copy):
+        X_train, X_test = X_copy[train_index], X_copy[test_index]
+        Y_train, Y_test = Y_copy[train_index], Y_copy[test_index]
         classifier = ExtraTreesClassifier(n_estimators=100, max_depth=15, min_samples_leaf=1, min_samples_split=2,
                                           criterion="gini",
                                           random_state=8, n_jobs=4, bootstrap='false', max_features=20)
-        X_train, X_test, Y_train, Y_test = train_test_split(X_copy, Y_copy, test_size=0.2, shuffle='true',
-                                                            stratify=Y_copy)
         classifier.fit(X_train, Y_train)
         prediction = classifier.predict(X_test)
         KAccuracies.append(accuracy_score(Y_test, prediction))
@@ -46,18 +48,18 @@ for j in range(0, 20):
     for i in range(1, 29):
         print("     Classification with PCA with", i, "features")
         pca = PCA(n_components=i)
-        X_copy = X.copy()
         Y_copy = Y.copy()
-        X_copy = pca.fit_transform(X_copy)
+        X_copy = pca.fit_transform(X)
         KAccuracies = []
 
         # For every value of n_components, PCA is tested on five different split of the dataSet
-        for k in range(0, 5):
+        kf = KFold(n_splits=5, shuffle=True)
+        for train_index, test_index in kf.split(X_copy):
+            X_train, X_test = X_copy[train_index], X_copy[test_index]
+            Y_train, Y_test = Y_copy[train_index], Y_copy[test_index]
             classifier = ExtraTreesClassifier(n_estimators=100, max_depth=15, min_samples_leaf=1, min_samples_split=2,
                                               criterion="gini",
                                               random_state=8, n_jobs=4, bootstrap='false', max_features=i)
-            X_train, X_test, Y_train, Y_test = train_test_split(X_copy, Y_copy, test_size=0.2, shuffle='true',
-                                                                stratify=Y_copy)
             classifier.fit(X_train, Y_train)
             prediction = classifier.predict(X_test)
             KAccuracies.append(accuracy_score(Y_test, prediction))
