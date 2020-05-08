@@ -20,13 +20,13 @@ print(classifier1)
 dataFunctions.validation(Y_test, prediction)
 
 # extra tree classifier
-classifier2 = classifiers.extraTreesClassifier(X_train, Y_train)
+classifier2 = classifiers.extraTreesClassifier(X_train, Y_train, 9)
 prediction = classifier2.predict(X_test)
 print(classifier2)
 dataFunctions.validation(Y_test, prediction)
 
 # random forest classifier
-classifier3 = classifiers.randomForestClassifier(X_train, Y_train)
+classifier3 = classifiers.randomForestClassifier(X_train, Y_train, 9)
 prediction = classifier3.predict(X_test)
 print(classifier3)
 dataFunctions.validation(Y_test, prediction)
@@ -34,12 +34,10 @@ importances = classifier3.feature_importances_ # importanza delle singole featur
 std = np.std([tree.feature_importances_ for tree in classifier3.estimators_], axis=0)
 indices = np.argsort(importances)[::-1]
 
-
 # build plot
 std = np.std([tree.feature_importances_ for tree in classifier3.estimators_],
              axis=0)
 indices = np.argsort(importances)[::-1]
-
 for f in range(X_train.shape[1]):
     print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
 plt.figure()

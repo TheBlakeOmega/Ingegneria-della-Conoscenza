@@ -74,7 +74,7 @@ for j in range(0, 20):
     # Save accuracy graphics of every experiment
     plt.figure()
     plt.plot(n_component, accuracy_scores, 'b')
-    plt.title('Accuratezza del classificatore al variare delle componenti della PCA. Esperimento ' + str(j+1))
+    plt.title('Accuratezza del classificatore al variare delle componenti della ICA. Esperimento ' + str(j+1))
     plt.xlabel('n_component')
     plt.ylabel('Accuracy_score')
     plt.xlim(0.0, 29.0)
@@ -93,4 +93,3 @@ plt.xlim(0.0, 21.0)
 plt.ylim(0.0, 29.0)
 namePlot = "Number of ICA's components with max accuracy for every experiment.png"
 plt.savefig(namePlot, bbox_inches='tight')
-plt.show()
