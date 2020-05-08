@@ -20,13 +20,13 @@ print(classifier1)
 dataFunctions.validation(Y_test, prediction)
 
 # extra tree classifier
-classifier2 = classifiers.extraTreesClassifier(X_train, Y_train, 9)
+classifier2 = classifiers.extraTreesClassifier(X_train, Y_train)
 prediction = classifier2.predict(X_test)
 print(classifier2)
 dataFunctions.validation(Y_test, prediction)
 
 # random forest classifier
-classifier3 = classifiers.randomForestClassifier(X_train, Y_train, 9)
+classifier3 = classifiers.randomForestClassifier(X_train, Y_train)
 prediction = classifier3.predict(X_test)
 print(classifier3)
 dataFunctions.validation(Y_test, prediction)
