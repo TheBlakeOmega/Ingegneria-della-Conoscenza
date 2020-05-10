@@ -20,7 +20,7 @@ def bayesianClassifier(X_train, Y_train):
 
 def extraTreesClassifier(X_train, Y_train):
     print("Building ExtraTrees Classifier:")
-    classifier = ExtraTreesClassifier(n_estimators=250, max_depth=25, min_samples_leaf=1, min_samples_split=2, criterion="gini",
+    classifier = ExtraTreesClassifier(n_estimators=275, max_depth=25, min_samples_leaf=1, min_samples_split=2, criterion="gini",
                                       random_state=8, n_jobs=4, bootstrap='false', max_features=20)
     classifier.fit(X_train, Y_train)
     return classifier
@@ -28,7 +28,7 @@ def extraTreesClassifier(X_train, Y_train):
 
 def randomForestClassifier(X_train, Y_train):
     print("Building Random Forest Classifier:")
-    classifier = RandomForestClassifier(n_estimators=100, max_features=20, max_depth=25, max_samples=45,
+    classifier = RandomForestClassifier(n_estimators=100, max_features=20, max_depth=15, max_samples=45,
                                    min_samples_leaf=1,
                                    criterion='gini', min_samples_split=2,
                                    random_state=8,

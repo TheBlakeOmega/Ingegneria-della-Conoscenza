@@ -5,13 +5,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import metrics
 import pandas as pd
+from sklearn.metrics import classification_report
 
 path = "D:/Users/Marco/Desktop/DataSet/musicfeatures/data.csv"
 
 # load dataset and feature selection
-X_train, X_test, Y_train, Y_test = dataFunctions.getData(path)
-#X_train, X_test, pca = dataFunctions.makePCA(X_train, X_test)
-
+X_train, X_test, Y_train, Y_test, n_class = dataFunctions.getData(path)
 
 
 
@@ -31,11 +30,14 @@ metrics.validation(Y_test, prediction)
 metrics.confusionMatrix(Y_test, prediction, name='Confusion Matrix BC')
 
 
+
 # extra tree classifier
+
 classifier2 = classifiers.extraTreesClassifier(X_train, Y_train)
 prediction = classifier2.predict(X_test)
 print(classifier2)
-metrics.validation(Y_test, prediction)
+#metrics.validation(Y_test, prediction)
+print(classification_report(Y_test, prediction, target_names=n_class))
 metrics.confusionMatrix(Y_test, prediction, name='Confusion Matrix ETC')
 
 
